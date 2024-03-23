@@ -1,0 +1,206 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    
+    #btn{
+    background-color: #0096c7;
+    border-color: whitesmoke;
+  }
+    table tbody tr td {
+      text-align: center;
+    }
+
+    /* Centralize os cabeçalhos da tabela */
+    table thead tr th {
+      text-align: center;
+    }
+    #botao{
+      margin-left: 30px;
+    }
+    #tabela-principal{
+      justify-content: center;
+    }
+    .custom-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            margin-left: 10px;
+            margin-left: 40px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            font-size: 17px;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Estilo do botão ao passar o mouse */
+        .custom-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Reset de estilos para o input[type="submit"] */
+        input[type="submit"] {
+            display: none; /* Esconde o input padrão */
+        }
+        a {
+          color: inherit; /* Faz a cor do link ser a mesma do texto ao redor */
+          text-decoration: none; /* Remove o sublinhado */
+  /* Adicione outras propriedades conforme necessário */
+}
+#editar {
+  background-color: red;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 4px;
+  padding-bottom: 4px; 
+  margin-left: 10px;/* Adjust margin as needed */
+}
+#lapis{
+  background-color: #007bff;
+}
+#search{
+  background-color: white;
+  color: black !important;
+}
+#search::placeholder {
+  color: black;
+}
+
+h3{
+  color: black !important;
+}
+#check{
+  margin-right: 10px;
+}
+
+    
+    .container {
+      display: flex;
+      justify-content: space-between; /* Alinha os elementos uniformemente na linha */
+      align-items: center; /* Centraliza verticalmente */
+      margin-bottom: 10px;
+      
+    }
+  </style>
+
+  <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'inventory' %}">IGH Inventory Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav me-auto">
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a href="" class="nav-link active"> Olá, {{user.username}}</a>
+            </li>
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'inventory' %}">Home
+              <span class="visually-hidden">(current)</span>
+            </a>
+          </li>
+          {% if not user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'register' %}">Registre-se</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'login' %}">Login</a>
+            </li>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'logout' %}">Sair</a>
+            </li>
+          {% endif %}
+          
+        </ul>
+        <form method="GET" action="{% url 'inventory' %}" class="d-flex">
+          <input id="search" class="form-control me-sm-2" name="search" type="search" placeholder="Search">
+          <button id="btn" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <br>
+  <h4 style="text-align: center;">Quantidade de Itens:</h4>
+  <div class="container">
+    <h5>{{ quantidade_de_itens }} registros cadastrados</h5>
+    <h5>{{ quantidade_pc }} Computadores </h5>
+  </div>
+  <div class="container">
+    <h5>{{ quantidade_moni }} Monitores </h5>
+    <h5>{{ quantidade_notebooks }} Notebooks </h5>
+  </div>
+  <table   class="table table-hover">
+    <thead>
+      <tr  class="table-active">
+        <th scope="row">Nome</th>
+        <th scope="row">Setor</th>
+        <th scope="row">Maquina</th>
+        <th scope="row">Marca</th>
+        <th scope="row">Patrimônio</th>
+        <th scope="row">Série</th>
+        <th scope="row">Monitor</th>
+        <th><form action="{% url 'new_iten' %}">
+          <button class="custom-button">Cadastrar</button>
+      </form></th>
+      </tr>
+    </thead>
+    {% if inventory %}{%for itens in inventory%}
+    <div>
+        <tbody >
+          <tr>
+            
+            <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.nome}}</a></td>
+            <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.setor}}</a></td>
+            <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.maquina}}</a></td>
+            <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.marca}}</a></td>
+            {% if itens.patrimonio %}
+              <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.patrimonio}}</a></td>
+            {% else %}
+              <td><a href="{% url 'itens_detail' itens.pk %}">-------</a></td>
+            {% endif %}
+            {% if itens.serie %}
+              <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.serie}}</a></td>
+            {% else %}
+              <td><a href="{% url 'itens_detail' itens.pk %}">-------</a></td>
+            {% endif %}
+            <td><a href="{% url 'itens_detail' itens.pk %}">{{itens.monitor}}</a></td>
+            {% if user.is_authenticated %}
+            <th>
+              <input id="check" type="checkbox" name="itens_selecionados" >
+              <a href="{% url 'itens_update' itens.pk %}"><button id="lapis" type="button" class="btn btn-primary btn-sm">✎</button></a>
+              <a href="{% url 'itens_delete' itens.pk %}"><button id="editar" type="button" class="btn btn-primary btn-sm">x</button></a>
+              
+            </th>
+            
+            
+            {% endif %}
+            
+          </tr>
+        
+        </tbody>
+        
+      
+  </div>
+  
+  {% endfor %}
+  {%else%}
+    <p>Nenhum Iten encontrado</p>
+  {% endif %}
+</body>
+
+</html>
+{% endblock %}

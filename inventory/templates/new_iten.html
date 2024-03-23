@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://bootswatch.com/5/minty/bootstrap.min.css">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    form {
+        margin-top: 20px;
+        font-weight: bold;
+        
+        
+    }
+    form > p {
+        margin-bottom: 10px;
+        color: black !important;
+    }
+    form > button {
+        margin-top: 20px;
+    }
+    
+
+</style>
+<nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'inventory' %}">IGH Inventory Manager</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a href="" class="nav-link active"> Olá, {{user.username}}</a>
+          </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'inventory' %}">Home
+            <span class="visually-hidden">(current)</span>
+          </a>
+        </li>
+        {% if not user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'register' %}">Registre-se</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'login' %}">Login</a>
+          </li>
+        {% endif %}
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'logout' %}">Sair</a>
+          </li>
+        {% endif %}
+        
+      </ul>
+      <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Search">
+        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+  <div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 ">
+            <form method="post" class="form-center">
+                {% csrf_token %}
+                <h2 class="mt-5 mb-3">Cadastro de Item</h2>
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
