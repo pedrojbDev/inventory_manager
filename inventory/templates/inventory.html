@@ -84,13 +84,16 @@ h3{
 }
 
     
-    .container {
+  .container {
       display: flex;
-      justify-content: space-between; /* Alinha os elementos uniformemente na linha */
-      align-items: center; /* Centraliza verticalmente */
-      margin-bottom: 10px;
+      justify-content: space-between;
+      align-items: center; /* Alinha os elementos uniformemente na linha */
+      margin-top: 50px;
+      margin-bottom: 30px;
       
-    }
+  }
+ 
+ 
   </style>
 
   <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
@@ -136,12 +139,10 @@ h3{
   <br>
   <h4 style="text-align: center;">Quantidade de Itens:</h4>
   <div class="container">
-    <h5>{{ quantidade_de_itens }} registros cadastrados</h5>
-    <h5>{{ quantidade_pc }} Computadores </h5>
-  </div>
-  <div class="container">
-    <h5>{{ quantidade_moni }} Monitores </h5>
-    <h5>{{ quantidade_notebooks }} Notebooks </h5>
+      <h5>{{ quantidade_de_itens }} registros </h5>
+      <h5>{{ quantidade_notebooks }} Notebooks </h5>
+      <h5>{{ quantidade_pc }} Computadores</h5>
+      <h5>{{ quantidade_moni }} Monitores </h5>
   </div>
   <table   class="table table-hover">
     <thead>
