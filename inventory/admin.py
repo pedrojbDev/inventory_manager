@@ -2,7 +2,7 @@ from django.contrib import admin
 from inventory.models import Itens,Maquina,Marca,Monitor,Setor
 
 class ItensAdmin(admin.ModelAdmin):
-  list_display= ('nome','setor','maquina','marca','patrimonio','serie','monitor')
+  list_display= ('nome','setor','maquina','marca','patrimonio','serie','monitor','arquivo')
   search_fields=('nome','setor','patrimonio')
 
 

@@ -35,6 +35,7 @@ class Itens(models.Model):
   patrimonio = models.CharField(max_length=50,blank=True,unique=True)
   serie = models.CharField(max_length=50,blank=True,unique=True)
   monitor =models.ForeignKey(Monitor,on_delete=models.PROTECT,related_name='itens_monitor',null=True)
+  arquivo = models.FileField(upload_to='inventory/',blank=True,null=True)
 
   def __str__(self):
     return self.nome

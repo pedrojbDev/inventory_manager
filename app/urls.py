@@ -2,6 +2,8 @@ from inventory.views import InventoryListView,NewIten,ItensDetailView,ItensUpdat
 from accounts.views import login_view,register_view,logout_view
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -13,5 +15,4 @@ urlpatterns = [
     path('itens/<int:pk>/', ItensDetailView.as_view(), name='itens_detail'),
     path('itens/<int:pk>/update/',ItensUpdateView.as_view(),name='itens_update'),
     path('itens/<int:pk>/delete/',ItensDeleteView.as_view(),name='itens_delete'),
-    
-]
+    ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT) 

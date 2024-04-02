@@ -150,6 +150,12 @@
           {% endif %}      
           <p><strong>Monitor:</strong>  {{ object.monitor }}</p>
           
+          {% if object.arquivo %}
+            <p><strong>Arquivo:</strong> <a href="{{ object.arquivo.url }}" target="_blank">Download/Visualizar Arquivo</a></p>
+          {% else %}
+            <p><strong>Arquivo:</strong> Não disponível</p>
+          {% endif %}
+          
       </div>
       {% if user.is_authenticated %}
         <div class="buttons-container">
