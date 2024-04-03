@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import TemplateView
 from django.views.generic import ListView,CreateView,DetailView,UpdateView,DeleteView
-from inventory.models import Itens, InventoryControl,Setor,Maquina,Monitor
+from inventory.models import Itens, InventoryControl,Setor,Maquina,Monitor,Propietario
 from inventory.forms import InventoryForm
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
@@ -33,6 +33,13 @@ class InventoryListView(ListView):
       
         context['quantidade_moni'] = quantidade_moni
 
+        quantidade_igh = Itens.objects.filter(propietario__nome='IGH').count()
+      
+        context['quantidade_igh'] = quantidade_igh
+
+        quantidade_micro = Itens.objects.filter(propietario__nome='Micro&Soft').count()
+      
+        context['quantidade_micro'] = quantidade_micro
 
         return context
     
@@ -42,8 +49,14 @@ class InventoryListView(ListView):
 
         itens = super().get_queryset().order_by('setor')
         search = self.request.GET.get('search')
+        propietario = self.request.GET.get('propietario')
+        setor = self.request.GET.get('setor')
         if search:
-          itens = itens.filter(nome__icontains=search)
+            itens = itens.filter(nome__icontains=search)
+        if propietario:
+            itens = itens.filter(propietario__nome__icontains=propietario)
+        if setor:
+            itens = itens.filter(setor__nome__icontains=setor)
         return itens
     
     

@@ -107,6 +107,10 @@ h3{
       font-size: 14px;
     }
   }
+#filter{
+  margin-bottom: 10px;
+  
+}
  
  
   </style>
@@ -158,7 +162,18 @@ h3{
       <h5>{{ quantidade_notebooks }} Notebooks </h5>
       <h5>{{ quantidade_pc }} Computadores</h5>
       <h5>{{ quantidade_moni }} Monitores </h5>
+      <h5>{{ quantidade_igh }} igh </h5>
+      <h5>{{ quantidade_micro }} micro </h5>
   </div>
+  <div id="filter">
+  <form method="GET" action="{% url 'inventory' %}" class="d-flex">
+    {% csrf_token %}
+    <input id="propietario"  style="margin-left: 20px;" name="propietario" type="text"   placeholder="Propietario">
+    <input id="setor" class="" name="setor" type="text" placeholder="Setor" style="margin-left: 20px;">
+    <button id="btn" style="margin-left: 20px;" class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+</form>
+</div>
+
   <table   class="table table-hover">
     <thead>
       <tr  class="table-active">
